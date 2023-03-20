@@ -26,23 +26,53 @@ There are some few suggestions for optimizing the code of helpers.tcl
 
 ***This modif avoids an error if the directory already exists
 
-if { ![file exists $result_dir] } {
-catch {file mkdir $result_dir}
-}
+#### if { ![file exists $result_dir] } {
+
+#### catch {file mkdir $result_dir} }
+
 
 ***The run  can be faster since it avoids the overhead of creating a new Tcl interpreter to execute the catch branch
 
 ***use file join instead of hard coding directory separators
 
-set test_dir [file dirname [file normalize [info script]]]
-set result_dir [file join $test_dir "results"]
+
+#### set test_dir [file dirname [file normalize [info script]]]
+
+#### set result_dir [file join $test_dir "results"]
+
 
 ***This ensures that directory separator for the operating system the script is running on 
 
+Use exec file instead of open file for reading a file 
+
+#### set stream [open $file r]
+#### while { [gets $stream line] >= 0 } {
+####   puts $line
+#### }
+#### close $stream
+
+can be changed to 
+
+#### puts [exec cat $file]
+this can avoid  forking a new process to read the file 
+
+
+***************
+Use catch to handle errors when opening files
+
+#### if { [catch {set stream1 [open $file1 r]}] } {
+  error "Could not open file: $file1"
+}
+#### if { [catch {set stream2 [open $file2 r]}] } {
+  error "Could not open file: $file2"
+}
+
+This ensures that errors when opening files are handled gracefully
 
 
               
                               REFERENCES
+                              
        [1]	https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts 
        [2] https://github.com/yathAg/openroad_vsd_7nmContest#auto-tuner-installation
        [3]	https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/blob/master/flow/tutorials/scripts/drt/drc_fix.tcl
