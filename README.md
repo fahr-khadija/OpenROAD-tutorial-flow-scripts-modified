@@ -12,6 +12,10 @@ OpenROAD is a open-source RTL-to-GDSII  flow.  RecentlyThis tutorial also includ
 ## OpenROAD-flow-scripts(ORFS) 
 This is a flow controller that provides a fully automated RTL-to-GDSII design flow .In ORFS, OpenROAD is used as a plug-in for the physical design stage, and it can be configured and customized to meet the specific needs of the design project.
 
-## The OpenROAD-flow-scripts tutorial is to run the complete OpenROAD based flow from RTL-to-GDS using OpenROAD Flow Scripts. This tutorial also includes examples of useful design explorations and manual usage in key flow stages to help users gain a good understanding of the OpenROAD application flow, data organization, GUI and commands
+## The OpenROAD-flow-scripts tutorial 
+It is to run the complete OpenROAD based flow from RTL-to-GDS using OpenROAD Flow Scripts. This tutorial also includes examples of useful design explorations and manual usage in key flow stages to help users gain a good understanding of the OpenROAD application flow, data organization, GUI and commands
+
+
+## The OpenROAD-flow-scripts optimize
 In tutorial process ,there are few script as  drc_issue.tcl  example to trace a simple DRC violation and  drc_fix.tcl example Tcl script to clean and fix the DRC violation.
 
