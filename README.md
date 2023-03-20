@@ -19,3 +19,33 @@ It is to run the complete OpenROAD based flow from RTL-to-GDS using OpenROAD Flo
 ## The OpenROAD-flow-scripts optimize
 In tutorial process ,there are few script as  drc_issue.tcl  example to trace a simple DRC violation and  drc_fix.tcl example Tcl script to clean and fix the DRC violation.
 
+## I.	IMPROVEMENTS
+There are some few suggestions for optimizing the code of helpers.tcl
+
+*https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/blob/master/flow/tutorials/scripts/drt/helpers.tcl*
+
+***This modif avoids an error if the directory already exists
+
+if { ![file exists $result_dir] } {
+catch {file mkdir $result_dir}
+}
+
+***The run  can be faster since it avoids the overhead of creating a new Tcl interpreter to execute the catch branch
+
+***use file join instead of hard coding directory separators
+
+set test_dir [file dirname [file normalize [info script]]]
+set result_dir [file join $test_dir "results"]
+
+***This ensures that directory separator for the operating system the script is running on 
+
+
+
+              
+                              REFERENCES
+       [1]	https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts 
+       [2] https://github.com/yathAg/openroad_vsd_7nmContest#auto-tuner-installation
+       [3]	https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/blob/master/flow/tutorials/scripts/drt/drc_fix.tcl
+       [4] https://vlsicad.ucsd.edu/Publications/Conferences/371/c371.pdf 
+       [5] https://vlsicad.ucsd.edu/Publications/Conferences/370/c370.pdf
+
